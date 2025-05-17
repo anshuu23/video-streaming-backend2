@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  userName     String
+  userEmail    String     @unique
+  userPassword String
+  photos       Photos[]
+  comments     Comments[]
+  photoLikes   PhotoLikes[]
+}
+
+model Photos {
+  id        String     @id @default(uuid())
+  photo     String
+  photoTitle String
+  photoDesc String
+  photoTags String[]
+  likes     Int @default(0)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  comments  Comments[]
+  photoLikes PhotoLikes[]
+}
+
+model Comments {
+  id      String   @id @default(uuid())
+  comment String
+  time    DateTime @default(now())
+  likes   Int @default(0)
+  photoId String
+  userId String
+  photos  Photos   @relation(fields: [photoId], references: [id])
+  users   User   @relation(fields: [userId], references: [id])
+}
+
+model PhotoLikes{
+  id      String   @id @default(uuid())
+  time    DateTime @default(now())
+  photoId String
+  userId String
+  photos  Photos   @relation(fields: [photoId], references: [id])
+  users   User   @relation(fields: [userId], references: [id])
+
+  @@unique([userId , photoId])
+}
