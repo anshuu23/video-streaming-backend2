@@ -18,6 +18,7 @@ model User {
   userName     String
   userEmail    String     @unique
   userPassword String
+  video Video[]
   photos       Photos[]
   comments     Comments[]
   photoLikes   PhotoLikes[]
@@ -57,3 +58,25 @@ model PhotoLikes{
 
   @@unique([userId , photoId])
 }
+
+model Video {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  categories   String[] // Array of strings (checkboxes)
+  tags         String[] // Optional tags
+  visibility   Visibility
+  thumbnailUrl String?  // Optional (for manual upload)
+  isUploaded   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  userId    String
+  userName    String
+  user      User       @relation(fields: [userId], references: [id])
+}   
+
+enum Visibility {
+  public
+  unlisted
+  private
+}
+

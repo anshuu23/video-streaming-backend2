@@ -29,7 +29,10 @@ console.log("🚀 ~ defaultErr ~ err:", err)
     // res.status(401).json({ error : err })
 }
 
-  
+export interface AuthRequest extends Request {
+  user?: any;
+}
+
 function checkAuth(req : Request  , res : Response , next : NextFunction){
     const authHeader = req?.headers?.authorization
    
@@ -40,8 +43,9 @@ function checkAuth(req : Request  , res : Response , next : NextFunction){
     }
   
     try{
-        const jwtPayload = jwt.verify(token , SECRET_KEY)  
-        req.body.user = jwtPayload 
+        const jwtPayload = jwt.verify(token , SECRET_KEY) 
+        const authReq = req as AuthRequest;
+        authReq.user = jwtPayload;
     }
     catch(error){
         throw new CustomError("invalid Token" , 400)

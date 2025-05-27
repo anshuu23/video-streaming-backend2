@@ -91,4 +91,57 @@ async function isPhotoLiked(userId : string , photoId : string  ){
     })
 }
 
-export {createAccount, loginUser , uploadPhoto , isUserExist , addComment , incrementPhotoLikesCount , addEntryToPhotoLikesTable , isPhotoLiked }
+async function uploadVideoDetails(id : string ,userId : string , title : string , description : string, tags :string[], visibility : any, categories : any , userName : string ){
+
+    return await prisma.video.create({
+        data:{
+            id,
+            userId ,
+            title,
+            description,
+            tags, 
+            visibility,
+            categories,
+            userName
+        }
+    })
+}
+
+async function getAllVideos(){
+    return await prisma.video.findMany({        
+    })
+}
+async function getSearchedVideos(query: string) {
+    return await prisma.video.findMany({
+        where: {
+            OR: [
+                {
+                    title: {
+                        contains: query,
+                        mode: 'insensitive'
+                    }
+                },
+                {
+                    userName: {
+                        contains: query,
+                        mode: 'insensitive'
+                    }
+                },
+                {
+                    categories: {
+                        hasSome: [query.toLowerCase()]
+                    }
+                },
+                {
+                    tags: {
+                        hasSome: [query.toLowerCase()]
+                    }
+                }
+            ]
+        }
+    });
+}
+
+
+
+export {createAccount, loginUser , uploadPhoto , isUserExist , addComment , incrementPhotoLikesCount , addEntryToPhotoLikesTable , isPhotoLiked , uploadVideoDetails , getAllVideos ,getSearchedVideos }

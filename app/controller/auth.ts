@@ -75,7 +75,7 @@ async function HandelUserLogin(req : Request , res : Response , next : NextFunct
             userId : isUserExistRes.id,
             userName : isUserExistRes.userName
         } 
-        const tokenToSend = jwt.sign( dataTOMakeToken , SECRET_KEY ,{expiresIn : '10m'})
+        const tokenToSend = jwt.sign( dataTOMakeToken , SECRET_KEY ,{expiresIn : '1h'})
 
         defaultRes(res , 200 , "account logged in , token generated" , tokenToSend)
 
