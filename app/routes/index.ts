@@ -14,7 +14,7 @@ router.post('/loginUser' , validateUserLoginReq, AuthController.HandelUserLogin)
 
 router.post('/video-details' ,checkAuth , upload.single("thumbnail") ,  UploadsController.HandeluplodVideoDetails)
 
-router.get('/getVideos' , VideosController.HandleGetAllVideos)
+router.get('/getVideos'  , VideosController.HandleGetAllVideos)
 
 router.get('/search/:query' , VideosController.HandleGetSearchedVideos)
 
