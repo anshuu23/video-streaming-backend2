@@ -3,7 +3,7 @@ import { CustomError  } from "../util";
 import { json } from "stream/consumers";
 import { defaultRes , PathDosentExistError } from "../util";
 import  jwt  from "jsonwebtoken";
-import { getEnvVariables } from "../../getenv";
+import { getEnvVariables } from "../getenv";
 
 const SECRET_KEY = getEnvVariables().SECRET_KEY as string
 

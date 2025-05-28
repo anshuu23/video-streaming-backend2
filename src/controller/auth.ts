@@ -5,7 +5,7 @@ import { createAccount, loginUser , uploadPhoto , isUserExist , addComment ,  in
 import { defaultErr } from "../middleware";
 import { CustomError  } from "../util";
 import jwt from "jsonwebtoken"
-import { getEnvVariables } from "../../getenv";
+import { getEnvVariables } from "../getenv";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient()

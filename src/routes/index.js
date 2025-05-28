@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const util_1 = require("../util");
+const router = express_1.default.Router();
+const controller_1 = require("../controller");
+const middleware_1 = require("../middleware");
+const services_1 = require("../services");
+router.post('/createAccount', util_1.validateCreateAccountReq, controller_1.AuthController.HandelCreateUserAccount);
+router.post('/loginUser', util_1.validateUserLoginReq, controller_1.AuthController.HandelUserLogin);
+router.post('/video-details', middleware_1.checkAuth, services_1.upload.single("thumbnail"), controller_1.UploadsController.HandeluplodVideoDetails);
+router.get('/getVideos', controller_1.VideosController.HandleGetAllVideos);
+router.get('/search/:query', controller_1.VideosController.HandleGetSearchedVideos);
+router.post('/uploadPhoto', util_1.validateUploadPhoto, middleware_1.checkAuth, controller_1.AuthController.HandelUploadPhoto);
+router.post('/comment', util_1.validateComment, middleware_1.checkAuth, controller_1.AuthController.HandelAddComment);
+router.put('/like', util_1.validateLike, middleware_1.checkAuth, controller_1.AuthController.HandelPhotoLike);
+router.post('/verifyToken', controller_1.AuthController.isTokenVerifyied);
+exports.default = router;

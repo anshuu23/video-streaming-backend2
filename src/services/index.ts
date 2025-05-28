@@ -5,7 +5,7 @@ import AWS from 'aws-sdk'
 
 import { CustomError, defaultRes } from "../util"
 import { randomUUID } from "crypto";
-import { getEnvVariables } from "../../getenv";
+import { getEnvVariables } from "../getenv";
 import { uploadVideoDetails } from "../repository";
 import multer from "multer"
 import path from "path";

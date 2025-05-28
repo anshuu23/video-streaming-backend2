@@ -1,8 +1,8 @@
 import express from "express"
 import { getEnvVariables } from "./getenv"
-import router from "./app/routes"
+import router from "./routes"
 import { error } from "console"
-import { defaultErr , wrongPath } from "./app/middleware"
+import { defaultErr , wrongPath } from "./middleware"
 import cors from "cors"
 
 const app = express()
